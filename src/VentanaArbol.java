@@ -8,32 +8,10 @@
  *
  * @author Lenovo
  */
+
+
 public class VentanaArbol extends javax.swing.JFrame {
-
-
-    public void inorden(Nodo nodo, StringBuilder resultado) {
-        if (nodo != null) {
-            inorden(nodo.izquierdo, resultado);
-            resultado.append(nodo.dato).append(" ");
-            inorden(nodo.derecho, resultado);
-        }
-    }
-
-    public void preorden(Nodo nodo, StringBuilder resultado) {
-        if (nodo != null) {
-            resultado.append(nodo.dato).append(" ");
-            preorden(nodo.izquierdo, resultado);
-            preorden(nodo.derecho, resultado);
-        }
-    }
-
-    public void postorden(Nodo nodo, StringBuilder resultado) {
-        if (nodo != null) {
-            postorden(nodo.izquierdo, resultado);
-            postorden(nodo.derecho, resultado);
-            resultado.append(nodo.dato).append(" ");
-        }
-    }
+    private ArbolBinario arbol = new ArbolBinario();
 
     public VentanaArbol() {
         initComponents();
@@ -58,12 +36,32 @@ public class VentanaArbol extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         btnInsertar.setText("Insertar");
+        btnInsertar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInsertarActionPerformed(evt);
+            }
+        });
 
         btnInorden.setText("Inorden");
+        btnInorden.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInordenActionPerformed(evt);
+            }
+        });
 
         btnPreorden.setText("Preorden");
+        btnPreorden.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPreordenActionPerformed(evt);
+            }
+        });
 
         btnPostorden.setText("Postorden");
+        btnPostorden.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPostordenActionPerformed(evt);
+            }
+        });
 
         txtResultado.setColumns(20);
         txtResultado.setRows(5);
@@ -76,20 +74,20 @@ public class VentanaArbol extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(78, 78, 78)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(164, 164, 164)
                         .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnInsertar)))
+                        .addComponent(btnInsertar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(78, 78, 78)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(82, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btnInorden)
+                .addGap(66, 66, 66)
                 .addComponent(btnPreorden)
                 .addGap(73, 73, 73)
-                .addComponent(btnInorden)
-                .addGap(61, 61, 61)
                 .addComponent(btnPostorden)
                 .addGap(117, 117, 117))
         );
@@ -103,8 +101,8 @@ public class VentanaArbol extends javax.swing.JFrame {
                 .addGap(75, 75, 75)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnPostorden)
-                    .addComponent(btnInorden)
-                    .addComponent(btnPreorden))
+                    .addComponent(btnPreorden)
+                    .addComponent(btnInorden))
                 .addGap(40, 40, 40)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(42, Short.MAX_VALUE))
@@ -112,6 +110,30 @@ public class VentanaArbol extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertarActionPerformed
+        int num = Integer.parseInt(txtNumero.getText());
+        arbol.insertar(num);
+        txtResultado.setText("Insertado: " + num);
+    }//GEN-LAST:event_btnInsertarActionPerformed
+
+    private void btnPreordenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPreordenActionPerformed
+        StringBuilder res = new StringBuilder();
+        arbol.preorden(arbol.raiz, res);
+        txtResultado.setText("Preorden: " + res.toString());
+    }//GEN-LAST:event_btnPreordenActionPerformed
+
+    private void btnInordenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInordenActionPerformed
+        StringBuilder res = new StringBuilder();
+        arbol.inorden(arbol.raiz, res);
+        txtResultado.setText("Inorden: " + res.toString());
+    }//GEN-LAST:event_btnInordenActionPerformed
+
+    private void btnPostordenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPostordenActionPerformed
+        StringBuilder res = new StringBuilder();
+        arbol.postorden(arbol.raiz, res);
+        txtResultado.setText("Postorden: " + res.toString());
+    }//GEN-LAST:event_btnPostordenActionPerformed
 
     /**
      * @param args the command line arguments

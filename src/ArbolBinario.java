@@ -28,4 +28,29 @@ public class ArbolBinario {
 
         return raiz;
     }
+    
+    public void inorden(Nodo nodo, StringBuilder resultado) {
+        if (nodo != null) {
+            inorden(nodo.izquierdo, resultado);
+            resultado.append(nodo.dato).append(" ");
+            inorden(nodo.derecho, resultado);
+        }
+    }
+
+    public void preorden(Nodo nodo, StringBuilder resultado) {
+        if (nodo != null) {
+            resultado.append(nodo.dato).append(" ");
+            preorden(nodo.izquierdo, resultado);
+            preorden(nodo.derecho, resultado);
+        }
+    }
+
+    public void postorden(Nodo nodo, StringBuilder resultado) {
+        if (nodo != null) {
+            postorden(nodo.izquierdo, resultado);
+            postorden(nodo.derecho, resultado);
+            resultado.append(nodo.dato).append(" ");
+        }
+    }
+
 }
